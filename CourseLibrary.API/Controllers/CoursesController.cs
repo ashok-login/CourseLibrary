@@ -25,7 +25,7 @@ namespace CourseLibrary.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<CourseDto>> GetCoursesForAuthor(Guid authorId)
         {
-            throw new Exception("Terrible error occurred");
+            //throw new Exception("Terrible error occurred");
             if(!_courseLibraryRepository.AuthorExists(authorId))
             {
                 return NotFound();
@@ -69,8 +69,10 @@ namespace CourseLibrary.API.Controllers
             _courseLibraryRepository.AddCourse(authorId, courseEntity);
             _courseLibraryRepository.Save();
             var courseToReturn = _mapper.Map<CourseDto>(courseEntity);
-            return CreatedAtRoute("GetCourseForAuthor",
-                new { authorId = authorId, courseId = courseToReturn.Id }, courseToReturn);
+            return CreatedAtRoute(
+                "GetCourseForAuthor",
+                new { authorId = authorId, courseId = courseToReturn.Id },
+                courseToReturn);
         }
     }
 }
